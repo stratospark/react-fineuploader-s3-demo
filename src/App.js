@@ -9,15 +9,18 @@ import 'react-fine-uploader/gallery/gallery.css';
 const uploader = new FineUploaderS3({
   options: {
     request: {
-      endpoint: "https://files-stratospark-us-public-upload-dev.s3.amazonaws.com",
+      endpoint: "https://files-stratospark-us-public-upload.s3-us-west-1.amazonaws.com/",
       accessKey: "AKIAJYVGHCVCR3DUFS2Q"
     },
     signature: {
-      endpoint: "https://signature-dev.stratospark.us",
+      endpoint: "https://signature-prod.stratospark.us",
       version: 4
     },
     chunking: {
       enabled: true
+    },
+    objectProperties: {
+      region: "us-west-1"
     }
   }
 })
@@ -31,7 +34,8 @@ class App extends Component {
           This demo uses a Zappa S3 Signing function executed on AWS Lambda
           to allow you to directly upload to an S3 bucket using Fine Uploader in your browser.
 
-          Please read more about this project at: <br/><br/><a href="#">https://github.com/stratospark/zappa-s3-signature</a>
+          Please read more about this project at: <br/><br/><a href="https://github.com/stratospark/zappa-s3-signature">https://github.com/stratospark/zappa-s3-signature</a>
+          <br/><br/><a href="https://github.com/stratospark/react-fineuploader-s3-demo">https://github.com/stratospark/react-fineuploader-s3-demo</a>
         </p>
         <Gallery className="gallery" uploader={uploader}/>
       </div>
