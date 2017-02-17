@@ -1,3 +1,11 @@
+.App .react-fine-uploader-gallery-file {
+  width: 145px;
+}
+
+.App .react-fine-uploader-gallery-file-input-container {
+  width: 115px;
+}
+
 .centered {
   width: 500px;
   margin-left: auto;
