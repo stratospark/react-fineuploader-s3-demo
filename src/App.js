@@ -9,7 +9,7 @@ import 'react-fine-uploader/gallery/gallery.css';
 const uploader = new FineUploaderS3({
   options: {
     request: {
-      endpoint: "https://files-stratospark-us-public-upload.s3-us-west-1.amazonaws.com/",
+      endpoint: "https://files-stratospark-us-public-upload.s3-us-west-1.amazonaws.com",
       accessKey: "AKIAJYVGHCVCR3DUFS2Q"
     },
     signature: {
