@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FineUploaderS3 from 'fine-uploader-wrappers/s3';
 import Gallery from 'react-fine-uploader';
 
-import logo from './logo.svg';
+import logo from './logo.png';
 import './App.css';
 import 'react-fine-uploader/gallery/gallery.css';
 
@@ -10,7 +10,7 @@ const uploader = new FineUploaderS3({
   options: {
     request: {
       endpoint: "https://fullfillment-engine-file-uploader.s3-us-east-2.amazonaws.com",
-      accessKey: process.env.S3_BUCKET
+      accessKey: process.env.S3_BUCKET,
     },
     signature: {
       endpoint: "https://apk-file-uploader.sysco.com",
@@ -29,15 +29,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1 className="centered">Secure Data File Uploads for Buckhead and FreshPoint RDC information </h1>
-        <p className="centered">
-         Data uploaded here will feed the Available to Promise (ATP) service
-
-        </p>
+        <div className="header">
+          <h1 className="title">Secure Data File Uploads for (ATP) service </h1>
+          <p className="subTitle">
+          Intended for BuckHead and FreshPoint data uploads
+          </p>
+        </div>
         <Gallery 
           className="gallery" 
-          uploader={uploader}/>
+          uploader={uploader}
+        />
+        <div className="footer"> 
+        <p>Crafted by Sysco BT-Ignite </p>
+        </div>
       </div>
+
     );
   }
 }
