@@ -8,12 +8,13 @@ import 'react-fine-uploader/gallery/gallery.css';
 
 const uploader = new FineUploaderS3({
   options: {
+    debug: true,
     request: {
       endpoint: "https://fullfillment-engine-file-uploader.s3-us-east-2.amazonaws.com",
       accessKey: process.env.S3_BUCKET,
     },
     signature: {
-      endpoint: "https://apk-file-uploader.sysco.com",
+      endpoint: "https://fullfillment-engine-file-uploader.s3-us-east-2.amazonaws.com",
       version: 1
     },
     chunking: {
