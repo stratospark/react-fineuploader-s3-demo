@@ -9,18 +9,18 @@ import 'react-fine-uploader/gallery/gallery.css';
 const uploader = new FineUploaderS3({
   options: {
     request: {
-      endpoint: "https://files-stratospark-us-public-upload.s3-us-west-1.amazonaws.com",
-      accessKey: "AKIAJYVGHCVCR3DUFS2Q"
+      endpoint: "https://fullfillment-engine-file-uploader.s3-us-east-2.amazonaws.com",
+      accessKey: process.env.S3_BUCKET
     },
     signature: {
-      endpoint: "https://signature-prod.stratospark.us",
-      version: 4
+      endpoint: "https://apk-file-uploader.sysco.com",
+      version: 1
     },
     chunking: {
       enabled: true
     },
     objectProperties: {
-      region: "us-west-1"
+      region: "us-east-2"
     }
   }
 })
@@ -29,15 +29,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1 className="centered">Secure 'Serverless' File Uploads with AWS Lambda, S3, and Zappa</h1>
+        <h1 className="centered">Secure Data File Uploads for Buckhead and FreshPoint RDC information </h1>
         <p className="centered">
-          This demo uses a Zappa S3 Signing function executed on AWS Lambda
-          to allow you to directly upload to an S3 bucket using Fine Uploader in your browser.
+         Data uploaded here will feed the Available to Promise (ATP) service
 
-          Please read more about this project at: <br/><br/><a href="https://github.com/stratospark/zappa-s3-signature">https://github.com/stratospark/zappa-s3-signature</a>
-          <br/><br/><a href="https://github.com/stratospark/react-fineuploader-s3-demo">https://github.com/stratospark/react-fineuploader-s3-demo</a>
         </p>
-        <Gallery className="gallery" uploader={uploader}/>
+        <Gallery 
+          className="gallery" 
+          uploader={uploader}/>
       </div>
     );
   }
