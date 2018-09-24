@@ -1,5 +1,6 @@
 {
   "name": "react-fineuploader-s3-demo",
+  "homepage": "sysco-fulfillment-engine-file-uploader-app.s3-website-us-east-1.amazonaws.com",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
