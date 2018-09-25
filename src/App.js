@@ -10,7 +10,7 @@ const uploader = new FineUploaderTraditional({
   options: {
     debug: true,
     request: {
-      most: "POST",
+      method: "POST",
       endpoint: "https://1brxufrp5l.execute-api.us-east-1.amazonaws.com/qa/upload-file",
     },
     chunking: {
