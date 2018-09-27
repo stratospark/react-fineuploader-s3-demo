@@ -1,5 +1,5 @@
 import React from 'react'
-import { post } from 'axios';
+import axios, { post } from 'axios';
 import './App.css';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
@@ -17,23 +17,34 @@ class App extends React.Component {
     this.fileUpload = this.fileUpload.bind(this)
     this.displaySuccess = this.displaySuccess.bind(this)
     this.displayError = this.displayError.bind(this)
+    this.fileError = this.fileError.bind(this)
   }
   onFormSubmit(e){
     e.preventDefault() // Stop form submit
-    this.fileUpload(this.state.file)
-    .then((response)=>{
-      console.log(response.status);
-        if (response.data !== 'OK') {
-          this.displayError();
-        }
-        else { 
-          this.displaySuccess();
-        }
-    })
+    if (this.state.file) {
+      this.fileUpload(this.state.file)
+      .then((response)=>{
+        console.log(response.status);
+          if (response.data === 'OK') {
+            this.displaySuccess();;
+          }
+          else { 
+            this.displaySuccess();
+          }
+      })
+    }
+    else this.fileError()
+  }
+
+  fileError() {
+    Alert.error('Please upload file', {
+      position: 'top-right',
+      effect: 'slide',
+    });
   }
 
   displayError() {
-    Alert.error('Error Saving Data. Only CSV files accepted', {
+    Alert.error('Only CSV files accepted. Refresh and Try Again', {
       position: 'top-right',
       effect: 'slide',
     });
@@ -58,7 +69,19 @@ class App extends React.Component {
             'content-type': 'multipart/form-data'
         }
     }
-    return  post(url, formData,config)
+    axios.post(url, formData, config)
+    .then(res =>{
+        console.log(res);
+        if (res.status === 200) {
+          this.displaySuccess();
+        } else {
+          this.displayError();
+        }
+    })
+    .catch(error => {
+      console.log(error);
+      this.displayError();
+    })
   }
 
   render() {
@@ -73,7 +96,12 @@ class App extends React.Component {
       <Alert timeout={5000}/>
       <form onSubmit={this.onFormSubmit}>
         <h1>File Upload</h1>
-        <input type="file" onChange={this.onChange} />
+        <h3> CSV files only </h3>
+        <input 
+          type="file" 
+          onChange={this.onChange}
+          className="uploader"
+          />
         <button type="submit">Upload</button>
         <div className="footer"> 
           <p>Crafted by Sysco BT-Ignite </p>
