@@ -19,22 +19,6 @@ class App extends React.Component {
     this.displayError = this.displayError.bind(this)
     this.fileError = this.fileError.bind(this)
   }
-  onFormSubmit(e){
-    e.preventDefault() // Stop form submit
-    if (this.state.file) {
-      this.fileUpload(this.state.file)
-      .then((response)=>{
-        console.log(response.status);
-          if (response.data === 'OK') {
-            this.displaySuccess();;
-          }
-          else { 
-            this.displaySuccess();
-          }
-      })
-    }
-    else this.fileError()
-  }
 
   fileError() {
     Alert.error('Please upload file', {
@@ -60,6 +44,17 @@ class App extends React.Component {
   onChange(e) {
     this.setState({file:e.target.files[0]})
   }
+
+  onFormSubmit(e){
+    e.preventDefault() // Stop form submit
+    if (this.state.file) {
+      this.fileUpload(this.state.file)
+    }
+    else if (this.state.file === null) {
+      this.fileError();
+    }
+  }
+
   fileUpload(file){
     const url = 'https://1brxufrp5l.execute-api.us-east-1.amazonaws.com/qa/upload-file';
     const formData = new FormData();
@@ -70,18 +65,32 @@ class App extends React.Component {
         }
     }
     axios.post(url, formData, config)
-    .then(res =>{
-        console.log(res);
-        if (res.status === 200) {
+    .then(response =>{
+        console.log(response, 'response');
+        if (response.status === 200) {
           this.displaySuccess();
-        } else {
-          this.displayError();
-        }
+          this.setState({ file: null});
+        };
     })
     .catch(error => {
-      console.log(error);
+      if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request,'error request');
+      this.displaySuccess();
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
       this.displayError();
-    })
+    }
+  });
   }
 
   render() {
