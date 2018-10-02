@@ -156,7 +156,7 @@ class App extends React.Component {
             </form>
           <div className='calendar'>
             <h1> Select Holiday or Skip days</h1>
-            <h3> Note: You make select multiple days </h3>
+            <h4> Note: You can select multiple days </h4>
             
             <DayPicker
               selectedDays={this.state.selectedDays}
