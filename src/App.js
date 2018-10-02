@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
+import logo from './logo.png';
 
 class App extends React.Component {
 
@@ -122,9 +123,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="header">
-          <h1 className="title">GATP Data tools </h1>
+          <h1 className="title">Fulfillment Engine tools </h1>
           <p className="subTitle">
-          Intended for BuckHead and FreshPoint </p>
+          Intended for BuckHead and FreshPoint Opco 115 </p>
         </div>
         <Grid 
           container spacing={24}
@@ -170,7 +171,7 @@ class App extends React.Component {
           </div>
         </Grid>
         <div className="footer"> 
-          <p>Crafted by Sysco BT-Ignite </p>
+          <img src={logo} alt='BT-Ignite'/>
         </div>
       </div>
    )
