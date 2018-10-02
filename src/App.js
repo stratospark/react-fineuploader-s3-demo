@@ -1,16 +1,26 @@
-import React from 'react'
-import axios, { post } from 'axios';
+import React from 'react';
+import axios from 'axios';
 import './App.css';
+
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+
+import DayPicker, { DateUtils } from 'react-day-picker';
+import "react-day-picker/lib/style.css";
+
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state ={
-      file:null
+      file:null,
+      selectedDays: [],
     }
     this.onFormSubmit = this.onFormSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
@@ -18,6 +28,7 @@ class App extends React.Component {
     this.displaySuccess = this.displaySuccess.bind(this)
     this.displayError = this.displayError.bind(this)
     this.fileError = this.fileError.bind(this)
+    this.handleDayClick = this.handleDayClick.bind(this)
   }
 
   fileError() {
@@ -90,32 +101,80 @@ class App extends React.Component {
       console.log('Error', error.message);
       this.displayError();
     }
-  });
+    });
   }
 
+  handleDayClick(day, { selected }) {
+    const { selectedDays } = this.state;
+    if (selected) {
+      const selectedIndex = selectedDays.findIndex(selectedDay =>
+        DateUtils.isSameDay(selectedDay, day)
+      );
+      selectedDays.splice(selectedIndex, 1);
+    } else {
+      selectedDays.push(day);
+    }
+    this.setState({ selectedDays });
+  }
+
+
   render() {
+    const modifiersStyles = {
+      birthday: {
+        color: 'white',
+        backgroundColor: '#ffc107',
+      },
+      thursdays: {
+        color: '#ffc107',
+        backgroundColor: '#fffdee',
+      },
+    };
+
     return (
-       <div className="App">
+      <div className="App">
         <div className="header">
-          <h1 className="title">Secure Data File Uploads for (ATP) service </h1>
+          <h1 className="title">GATP Data tools </h1>
           <p className="subTitle">
-          Intended for BuckHead and FreshPoint data uploads
-          </p>
+          Intended for BuckHead and FreshPoint </p>
         </div>
-      <Alert timeout={5000}/>
-      <form onSubmit={this.onFormSubmit}>
-        <h1>File Upload</h1>
-        <h3> CSV files only </h3>
-        <input 
-          type="file" 
-          onChange={this.onChange}
-          className="uploader"
-          />
-        <button type="submit">Upload</button>
+        <Grid 
+          container spacing={24}
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Alert timeout={5000}/>
+            <form onSubmit={this.onFormSubmit}>
+              <Grid  item xs={18}>
+                <h1>Item file upload</h1>
+                <h3> Note: CSV files only </h3>
+              </Grid>
+                <input 
+                  type="file" 
+                  onChange={this.onChange}
+                  className="uploadFile"
+                />
+              <Button 
+                variant="contained" 
+                component="span" 
+                className='button'
+              >
+                Submit
+              </Button>
+            </form>
+          <div className='calendar'>
+            <h1> Select Holiday or Skip days</h1>
+            <h3> Note: You make select multiple days </h3>
+            <DayPicker
+              modifiersStyles={modifiersStyles}
+              onDayClick={this.handleDayClick}
+            />
+            <Button className='submit'> Submit </Button>
+          </div>
+        </Grid>
         <div className="footer"> 
           <p>Crafted by Sysco BT-Ignite </p>
         </div>
-      </form>
       </div>
    )
   }
