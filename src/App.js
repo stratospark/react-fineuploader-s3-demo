@@ -119,17 +119,6 @@ class App extends React.Component {
 
 
   render() {
-    const modifiersStyles = {
-      birthday: {
-        color: 'white',
-        backgroundColor: '#ffc107',
-      },
-      thursdays: {
-        color: '#ffc107',
-        backgroundColor: '#fffdee',
-      },
-    };
-
     return (
       <div className="App">
         <div className="header">
@@ -153,23 +142,31 @@ class App extends React.Component {
                   type="file" 
                   onChange={this.onChange}
                   className="uploadFile"
+                  id='fileUploadInput'
                 />
               <Button 
                 variant="contained" 
                 component="span" 
                 className='button'
+                onClick={this.onFormSubmit}
               >
-                Submit
+                Submit File
               </Button>
             </form>
           <div className='calendar'>
             <h1> Select Holiday or Skip days</h1>
             <h3> Note: You make select multiple days </h3>
+            
             <DayPicker
-              modifiersStyles={modifiersStyles}
+              selectedDays={this.state.selectedDays}
               onDayClick={this.handleDayClick}
             />
-            <Button className='submit'> Submit </Button>
+            <Button 
+              variant="contained" 
+              component="span" 
+              className='button'> 
+              Save
+            </Button>
           </div>
         </Grid>
         <div className="footer"> 

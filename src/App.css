@@ -37,20 +37,23 @@
 }
 
 .uploadFile {
-  margin-right: 10px;
+
 }
 
 .uploadFile + label {
     font-size: 1.25em;
     font-weight: 700;
+    height: 50px;
+    width: 30px;
     color: white;
-    background-color: black;
+    background-color: rgb(225, 0, 80);
     display: inline-block;
+    margin-right: 10px;
 }
 
 .uploadFile:focus + label,
 .uploadFile + label:hover {
-    background-color: red;
+    background-color: #6DB33F;
 }
 
 .button {
@@ -66,9 +69,15 @@
  }
 
  .calendar {
+  display: flex;
+  flex-direction: column;
   text-align: ;
   margin-top: 10%;
-  margin-left: 25%;
+  margin-left: 10%;
+ }
+
+ .submit {
+
  }
 
 .footer{
