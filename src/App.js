@@ -123,7 +123,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="header">
-          <h1 className="title">Fulfillment Engine tools </h1>
+          <h1 className="title">Fulfillment Engine Uploader </h1>
           <p className="subTitle">
           Intended for BuckHead and FreshPoint Opco 115 </p>
         </div>
@@ -154,21 +154,6 @@ class App extends React.Component {
                 Submit File
               </Button>
             </form>
-          <div className='calendar'>
-            <h1> Select Holiday or Skip days</h1>
-            <h4> Note: You can select multiple days </h4>
-            
-            <DayPicker
-              selectedDays={this.state.selectedDays}
-              onDayClick={this.handleDayClick}
-            />
-            <Button 
-              variant="contained" 
-              component="span" 
-              className='button'> 
-              Save
-            </Button>
-          </div>
         </Grid>
         <div className="footer"> 
           <img src={logo} alt='BT-Ignite'/>
